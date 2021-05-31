@@ -68,11 +68,10 @@ function Grid({mouseCoordinates, getGridScale, cameraPosition, gridSize}) {
     }, [handleUserKeyPress])
 
     React.useEffect(() => {
-        let picker = {x: Math.round(mouseCoordinates.x / 2), y: Math.round(mouseCoordinates.y / 2)}
+        let picker = {x: Math.round(mouseCoordinates.x / 2 + cameraPosition.x), y: Math.round(mouseCoordinates.y / 2 + cameraPosition.z)}
 
         setPickerCoordinates(picker)
-    }, [mouseCoordinates])
-
+    }, [mouseCoordinates, cameraPosition.x, cameraPosition.z])
 
     const readSpline = (koeff, t, d) => {
         let result = {x: null, y: null}
@@ -221,13 +220,13 @@ function Grid({mouseCoordinates, getGridScale, cameraPosition, gridSize}) {
 
             {coordinatePointsX.map((p) => <group key={p} position={[p, 0.2, 0.3]}>
                 <Html center scaleFactor={10}>
-                    <div style={{color: 'black', fontFamily: 'Fredoka One', fontSize: 15 / (cameraPosition / 15)}}>{p / gridScale}</div>
+                    <div style={{color: 'black', fontFamily: 'Fredoka One', fontSize: 15 / (cameraPosition.y / 15)}}>{p / gridScale}</div>
                 </Html>
             </group>) }
 
             {coordinatePointsX.map((p) => <group key={p} position={[0.3, 0.2, p]}>
                 <Html center scaleFactor={10}>
-                    <div style={{color: 'black', fontFamily: 'Fredoka One', fontSize: 15 / (cameraPosition / 15)}}>{(p / gridScale) * -1}</div>
+                    <div style={{color: 'black', fontFamily: 'Fredoka One', fontSize: 15 / (cameraPosition.y / 15)}}>{(p / gridScale) * -1}</div>
                 </Html>
             </group>) }
 

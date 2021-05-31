@@ -16,32 +16,40 @@ function Controls({gridSize, getCameraPosition}) {
     const { camera, gl } = useThree()
 
     const handleUserKeyPress = React.useCallback(e => {
-        /*if(e.key === 's'){
+        let x = cameraX
+        let z = cameraZ
+
+        if(e.key === 's'){
             if(cameraZ <= gridSize) {
+                z += 1;
                 setCameraZ(cameraZ + 1)
             }
         }
 
         if(e.key === 'w'){
             if(cameraZ >= -gridSize) {
+                z -= 1;
                 setCameraZ(cameraZ - 1)
             }
         }
 
         if(e.key === 'd'){
             if(cameraX <= gridSize) {
+                x += 1
                 setCameraX(cameraX + 1)
             }
         }
 
-        if(e.key === 'a'){
-            if(cameraX >= -gridSize) {
+        if(e.key === 'a') {
+            if (cameraX >= -gridSize) {
+                x -= 1
                 setCameraX(cameraX - 1)
             }
-        }*/
+        }
 
-        console.log(cameraX)
-    }, [cameraZ, cameraX, gridSize])
+        getCameraPosition({x: x, y: cameraY, z: z})
+
+    }, [cameraZ, cameraX, gridSize, camera])
 
 
     useFrame(() =>{
@@ -66,17 +74,22 @@ function Controls({gridSize, getCameraPosition}) {
 
 function App() {
     const [coords, setCoords] = React.useState(new THREE.Vector2(0, 0));
-    const [cameraPositionY, setCameraPositionY] = React.useState(15)
     const [gridScale, setGridScale] = React.useState(1)
     const [gridSize, setGridSize] = React.useState(32)
+    const [cameraPosition, setCameraPosition] = React.useState({x: 0, y: 15, z: 0})
 
     const handleMouseMove = event => {
         event.preventDefault();
-        const x = (((event.clientX / window.innerWidth) * 2 - 1) / 0.34 * cameraPositionY);
-        const y = ((-(event.clientY / window.innerHeight) * 2 + 1) / 0.65 * cameraPositionY);
+        const x = (((event.clientX / window.innerWidth) * 2 - 1) / 0.34 * cameraPosition.y);
+        const y = ((-(event.clientY / window.innerHeight) * 2 + 1) / 0.65 * cameraPosition.y);
         const pos = new THREE.Vector2(x, y);
         setCoords(pos);
     };
+
+    const getCameraPosition = (position) => {
+        let pos = {x: position.x, y: position.y, z: position.z}
+        setCameraPosition(pos)
+    }
 
     const handleGetScale = (scale, coords) => {
         setGridScale(scale)
@@ -108,19 +121,20 @@ function App() {
                     camera={{zoom: 1, position: [0, 15, 0], scale: 1}}>
                     <ambientLight intensity={1}/>
 
-                    <Grid cameraPosition={cameraPositionY} gridSize={gridSize} getGridScale={(scale, coord) => handleGetScale(scale, coord)} mouseCoordinates={coords}/>
+                    <Grid cameraPosition={cameraPosition} gridSize={gridSize} getGridScale={(scale, coord) => handleGetScale(scale, coord)} mouseCoordinates={coords}/>
 
-                    <Controls mouse={coords} gridSize={gridSize}/>
+                    <Controls getCameraPosition={(position) => getCameraPosition(position)} mouse={coords} gridSize={gridSize}/>
                     <Suspense fallback={null}>
                     </Suspense>
                 </Canvas>
             </section>
 
-            <p style={{position: "absolute", zIndex: 122, backgroundColor: "#ffffff"}}>x: {(coords.x / 2 / gridScale).toFixed(gridScale > 1 ? Math.log(gridScale) / Math.log(2) : 0)} y: {(coords.y / 2 / gridScale).toFixed(2)}</p>
-            <p style={{position: "absolute", zIndex: 122, backgroundColor: "#ffffff", marginTop: 25}}>grid scale: {gridScale}</p>
-            <p style={{position: "absolute", zIndex: 122, backgroundColor: "#ffffff", marginTop: 50}}>cameraY: {cameraPositionY}</p>
-            <p style={{position: "absolute", zIndex: 122, backgroundColor: "#ffffff", marginTop: 75}}>grid Size: {gridSize}</p>
-
+            <div className="info-menu">
+                <p style={{position: "absolute", zIndex: 122, backgroundColor: "#ffffff"}}>x: {(coords.x / 2 / gridScale).toFixed(gridScale > 1 ? Math.log(gridScale) / Math.log(2) : 0)} y: {(coords.y / 2 / gridScale).toFixed(2)}</p>
+                <p style={{position: "absolute", zIndex: 122, backgroundColor: "#ffffff", marginTop: 25}}>grid scale: {gridScale}</p>
+                <p style={{position: "absolute", zIndex: 122, backgroundColor: "#ffffff", marginTop: 50}}>cameraY: {cameraPosition.y}</p>
+                <p style={{position: "absolute", zIndex: 122, backgroundColor: "#ffffff", marginTop: 75}}>grid Size: {gridSize}</p>
+            </div>
         </>
     );
 }
