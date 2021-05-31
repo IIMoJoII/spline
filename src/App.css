@@ -1,38 +1,233 @@
 .App {
+  width: 100vw;
+  height: 100vh;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container{
+  cursor: pointer;
+  position: absolute;
+  background-color: yellow;
+  margin-top: 300px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.page{
+  height: 100vh;
+  width: 100vw;
+  background: #2c3033;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+
+.inside-point{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  background-color: white;
+}
+
+
+
+
+.wave{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+
+  border: 1px solid white;
+
+  animation: wave 2s linear infinite;
+}
+
+.wave:nth-of-type(2){
+  animation-delay: 1s;
+}
+
+.menu-point p{
+  margin-top: 10px;
+  font-weight: bold;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+@keyframes wave {
+  0% {
+    width: 100px;
+    height: 100px;
+  }
+  20% {
+    opacity: 0.4;
+  }
+  40% {
+    opacity: 0.3;
+  }
+  60% {
+    opacity: 0.2;
+  }
+  80% {
+    opacity: 0.1;
+  }
+  100% {
+    width: 180px;
+    height: 180px;
+    opacity: 0;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.logo{
+  position: absolute;
+  margin-left: 300px;
+  margin-top: 320px;
+  z-index: 200;
 }
+
+.logo h1{
+  color: #16eaea;
+  font-size: 80px;
+}
+
+.logo p{
+  font-size: 20px;
+  color: #557d7f;
+}
+
+.portfolio{
+  margin-left: 1400px;
+  margin-top: 300px;
+}
+
+.skills{
+  margin-left: 400px;
+  margin-top: 700px;
+}
+
+
+.nav-menu {
+  z-index: 22;
+  position: fixed;
+  right: 40px;
+  margin-top: calc(50vh - 100px);
+}
+
+
+.nav-menu .round{
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #16eaea;
+}
+
+
+.main{
+}
+
+.infoMenu{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 150px;
+  width: 300px;
+  z-index: 122;
+  position: absolute;
+  background-color: white;
+  margin-left: 20px;
+  margin-top: 80px;
+}
+
+.infoMenu p{
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.infoMenuBtn{
+  border: 2px solid black;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  z-index: 122;
+  position: absolute;
+  font-size: 25px;
+  background-color: white;
+  width: 150px;
+  height: 50px;
+}
+
+.objectMenuBtn{
+  margin-left: 700px;
+}
+
+
+.constructObjectsBtn{
+  margin-left: 360px;
+  width: 220px;
+}
+
+
+.objectsMenu{
+  justify-content: flex-start;
+  margin-left: 360px;
+}
+
+.objectsMenu p{
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.objectInfoMenu{
+  height: 200px;
+  margin-left: 700px;
+}
+
+.objectInfoMenu input{
+  width: 100px;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+
+.infoMenu .parameters{
+  display: flex;
+  flex-direction: row;
+}
+
+.perspective{
+  width: 70px;
+  margin-left: 1000px;
+}
+
+
+
+.SplineBtn{
+  margin-left: 1000px;
+}
+
+.spline{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: white;
+  position: absolute;
+
+  z-index: 122;
+}
+
+
+
+
+
+
+
+
+
+
