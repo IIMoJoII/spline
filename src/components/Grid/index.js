@@ -29,6 +29,7 @@ function Grid({mouseCoordinates, getGridScale, cameraPosition, gridSize}) {
         coordinatePointsX.push(i)
     }
 
+    console.log(pointsArrScaled)
 
     const handleUserKeyPress = React.useCallback(e => {
         if(e.key === '-'){
@@ -46,7 +47,7 @@ function Grid({mouseCoordinates, getGridScale, cameraPosition, gridSize}) {
             setPointsArr(newPoints)
         }
 
-        if(e.key === 'd'){
+        if(e.key === 'f'){
             setPointsArr([])
         }
 
@@ -68,7 +69,7 @@ function Grid({mouseCoordinates, getGridScale, cameraPosition, gridSize}) {
     }, [handleUserKeyPress])
 
     React.useEffect(() => {
-        let picker = {x: Math.round(mouseCoordinates.x / 2 + cameraPosition.x), y: Math.round(mouseCoordinates.y / 2 + cameraPosition.z)}
+        let picker = {x: Math.round(mouseCoordinates.x / 2 + cameraPosition.x), y: Math.round(mouseCoordinates.y / 2 - cameraPosition.z)}
 
         setPickerCoordinates(picker)
     }, [mouseCoordinates, cameraPosition.x, cameraPosition.z])
