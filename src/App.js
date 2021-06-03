@@ -49,7 +49,7 @@ function Controls({gridSize, getCameraPosition}) {
 
         getCameraPosition({x: x, y: cameraY, z: z})
 
-    }, [cameraZ, cameraX, gridSize, camera])
+    }, [cameraZ, cameraX, gridSize, cameraY, getCameraPosition])
 
 
     useFrame(() =>{
